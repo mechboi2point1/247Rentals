@@ -161,8 +161,32 @@ export class MyDocumentsComponent implements OnInit {
       'blob': this.dpImageBase64
     }
     this.service.updateImage(form).subscribe(res => { this.toastr.success(res?.body?.data); this.dp = 'data:image/jpeg;base64,' + this.dpImageBase64 }, err => { this.toastr.show('Could not upload you profile pic') });
+  }
+  submitFronDL(files: any) {
+
+  }
+  submitBackDL(files: any) {
+
+  }
 
 
+  submitFronAadhar(files: any) {
+
+  }
+  submitBackAadhar(files: any) {
+
+  }
+  handleInputChangeDoc(files: any) {
+    var file = files;
+
+    var reader = new FileReader();
+
+    reader.onloadend = this._handleReaderLoadedDoc.bind(this);
+    reader.readAsDataURL(file);
+  }
+  _handleReaderLoadedDoc(e: any) {
+    let reader = e.target;
+    var base64result = reader.result.substr(reader.result.indexOf(',') + 1);
 
   }
 
