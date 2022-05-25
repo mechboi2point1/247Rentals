@@ -1,0 +1,316 @@
+<!-- Button trigger modal -->
+<h4 class="text-warning" *ngIf="!customer">Fetching Your Details...</h4>
+<div *ngIf="customer" class="container">
+    <div class="main-body">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="profilepic">
+                                    <img class="profilepic__image" [src]='dp' onerror="this.src='../../../../../../assets/useravtar.png'" alt="Profile Pic" />
+                                    <div class="profilepic__content">
+
+                                        <div class="image-upload">
+                                            <label for="file-input">
+                                            Upload/Edit
+                                            </label>
+
+                                            <input #file4 data-required="image" type="file" name="image_name" id="file-input" class="image-input" data-traget-resolution="image_resolution" (change)="previewDP($event)" accept="image/png, image/jpg, image/jpeg" />
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="card-body">
+
+
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0"><b>Name:</b>{{" "+customer?.name}}</h6>
+                                <span class="text-secondary"></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0"><b>Email:</b>{{" "+customer?.email}}</h6>
+                                <span class="text-secondary"></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0"><b>Phone:</b>{{" +91-"+customer?.phone}}</h6>
+                                <span class="text-secondary"></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0"><b>Gender:</b>{{" "+customer?.gender}}</h6>
+                                <span class="text-secondary"></span>
+                            </li>
+
+
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <section class="accordion">
+
+                    <h2 class="handle">
+
+                    </h2>
+
+                </section>
+
+                <section class="accordion">
+                    <input type="checkbox" name="collapse" id="handle1" checked="checked">
+                    <h2 class="handle">
+                        <label for="handle1">Current Booking Details</label>
+                    </h2>
+                    <div class="content">
+                        <div *ngIf="!currentOrder" class="text-danger">No Current Booking</div>
+                        <div *ngIf="currentOrder" class="text-danger">booking code goes here</div>
+                    </div>
+                </section>
+                <section class="accordion">
+                    <input type="checkbox" name="collapse2" id="handle2">
+                    <h2 class="handle">
+                        <label *ngIf="!fetchingDocuments" for="handle2">My DL Details</label>
+                        <label for="handle2" *ngIf="fetchingDocuments">
+            Fetching your DL information...
+                    </label>
+                    </h2>
+                    <div *ngIf="!fetchingDocuments" class="content">
+                        <div *ngIf="!drivingLicence" class="text-danger">DL Information Not updated.
+                            <table style="width: 100%;">
+                                <tr>
+                                    <th>
+                                        DL No: </th>
+                                    <td><input class="form-control" type="text" placeholder='Enter DL Number'></td>
+                                </tr>
+                            </table>
+                            <table style="width: 100%;">
+
+                                <tr>
+                                    <td>
+                                        <b>Front Side</b><br/>
+                                        <img [src]="frontDlimgURL" height="150px" width="200px" *ngIf="frontDlimgURL"><br/>
+                                        <button *ngIf="frontDlimgURL" (click)="frontDlimgURL=null" class="btn btn-danger">Re Upload</button>
+                                        <div *ngIf="!frontDlimgURL" class="item-wrapper one">
+                                            <div class="item">
+                                                <form data-validation="true" action="#" method="post" enctype="multipart/form-data">
+                                                    <div class="item-inner">
+                                                        <div class="item-content">
+                                                            <div class="image-upload"> <label style="cursor: pointer;" for="file_upload"> <img src="" alt="" class="uploaded-image">
+                            <div class="h-100">
+                                <div class="dplay-tbl">
+                                    <div class="dplay-tbl-cell"> <i class="fa fa-cloud-upload"></i>
+                                        <h5><b>Choose Your DL Front Side Image</b></h5>
+                                        <h6 class="mt-10 mb-70">Or Drop Your DL Front Side Image</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--upload-content-->
+                            <input #file1 data-required="image" type="file" name="image_name" id="file_upload" class="image-input" data-traget-resolution="image_resolution" (change)="previewFronDL(file1.files)">
+                        </label> </div>
+                                                        </div>
+                                                        <!--item-content-->
+                                                    </div>
+                                                    <!--item-inner-->
+                                                </form>
+                                            </div>
+                                            <!--item-->
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>Back Side</b><br/>
+                                        <img [src]="backDlimgURL" height="150px" width="200px" *ngIf="backDlimgURL"><br/>
+                                        <button *ngIf="backDlimgURL" (click)="backDlimgURL=null" class="btn btn-danger">Re Upload</button>
+                                        <div *ngIf="!backDlimgURL" class="item-wrapper one">
+                                            <div class="item">
+                                                <form data-validation="true" action="#" method="post" enctype="multipart/form-data">
+                                                    <div class="item-inner">
+                                                        <div class="item-content">
+                                                            <div class="image-upload"> <label style="cursor: pointer;" for="file_upload"> <img src="" alt="" class="uploaded-image">
+                            <div class="h-100">
+                                <div class="dplay-tbl">
+                                    <div class="dplay-tbl-cell"> <i class="fa fa-cloud-upload"></i>
+                                        <h5><b>Choose Your DL Back Side Image</b></h5>
+                                        <h6 class="mt-10 mb-70">Or Drop Your DL Back Side Image</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--upload-content--> <input #file2 data-required="image" type="file" name="image_name" id="file_upload" class="image-input" data-traget-resolution="image_resolution" (change)="previewBackDL(file2.files)">
+                        </label> </div>
+                                                        </div>
+                                                        <!--item-content-->
+                                                    </div>
+                                                    <!--item-inner-->
+                                                </form>
+                                            </div>
+                                            <!--item-->
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br/><button class="btn form-control btn-success">Update DL Details</button></div>
+                        <div *ngIf="drivingLicence">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <th>
+                                        DL No: </th>
+                                    <td>{{drivingLicence?.dlnumber}}</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>Front Side</b><br/>
+                                        <img style="width:200px;height:150px;" [src]='"data:image/jpg;base64,"+drivingLicence.front'></td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>Back Side</b><br/>
+                                        <img style="width:200px;height:150px;" [src]='"data:image/jpg;base64,"+drivingLicence.back'></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                </section>
+                <section class="accordion">
+                    <input type="checkbox" name="collapse2" id="handle3">
+                    <h2 class="handle">
+                        <label *ngIf="!fetchingDocuments" for="handle3">My Aadhaar Details
+                          <a *ngIf="!aadhar" class="text-danger">(Not verefied)</a></label>
+                        <label *ngIf="fetchingDocuments" for="handle3">
+                        Fetching your Aadhaar information...
+                    </label>
+                    </h2>
+                    <div *ngIf="!fetchingDocuments" class="content">
+                        <div *ngIf="!aadhar" class="text-danger">Aadhar Details Not updated.<br/>
+                            <div *ngIf="!drivingLicence" class="text-danger">DL Information Not updated.
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <th>
+                                            Aadhar No: </th>
+                                        <td><input class="form-control" type="text" placeholder='Enter Aadhar Number'></td>
+                                    </tr>
+                                </table>
+                                <table style="width: 100%;">
+
+                                    <tr>
+                                        <td>
+                                            <b>Front Side</b><br/>
+                                            <img [src]="frontAadharimgURL" height="150px" width="200px" *ngIf="frontAadharimgURL"><br/>
+                                            <button *ngIf="frontAadharimgURL" (click)="frontAadharimgURL=null" class="btn btn-danger">Re Upload</button>
+                                            <div *ngIf="!frontAadharimgURL" class="item-wrapper one">
+                                                <div class="item">
+                                                    <form data-validation="true" action="#" method="post" enctype="multipart/form-data">
+                                                        <div class="item-inner">
+                                                            <div class="item-content">
+                                                                <div class="image-upload"> <label style="cursor: pointer;" for="file_upload"> <img src="" alt="" class="uploaded-image">
+                            <div class="h-100">
+                                <div class="dplay-tbl">
+                                    <div class="dplay-tbl-cell"> <i class="fa fa-cloud-upload"></i>
+                                        <h5><b>Choose Your DL Front Side Image</b></h5>
+                                        <h6 class="mt-10 mb-70">Or Drop Your DL Front Side Image</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--upload-content-->
+                            <input #file3 data-required="image" type="file" name="image_name" id="file_upload" class="image-input" data-traget-resolution="image_resolution" (change)="previewFronAadhar(file3.files)">
+                        </label> </div>
+                                                            </div>
+                                                            <!--item-content-->
+                                                        </div>
+                                                        <!--item-inner-->
+                                                    </form>
+                                                </div>
+                                                <!--item-->
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>Back Side</b><br/>
+                                            <img [src]="backAadharimgURL" height="150px" width="200px" *ngIf="backAadharimgURL"><br/>
+                                            <button *ngIf="backAadharimgURL" (click)="backAadharimgURL=null" class="btn btn-danger">Re Upload</button>
+                                            <div *ngIf="!backAadharimgURL" class="item-wrapper one">
+                                                <div class="item">
+                                                    <form data-validation="true" action="#" method="post" enctype="multipart/form-data">
+                                                        <div class="item-inner">
+                                                            <div class="item-content">
+                                                                <div class="image-upload"> <label style="cursor: pointer;" for="file_upload"> <img src="" alt="" class="uploaded-image">
+                            <div class="h-100">
+                                <div class="dplay-tbl">
+                                    <div class="dplay-tbl-cell"> <i class="fa fa-cloud-upload"></i>
+                                        <h5><b>Choose Your Aadhaar Back Side Image</b></h5>
+                                        <h6 class="mt-10 mb-70">Or Drop Your DL Back Side Image</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--upload-content--> <input #file3 data-required="image" type="file" name="image_name" id="file_upload" class="image-input" data-traget-resolution="image_resolution" (change)="previewBackAadhar(file3.files)">
+                        </label> </div>
+                                                            </div>
+                                                            <!--item-content-->
+                                                        </div>
+                                                        <!--item-inner-->
+                                                    </form>
+                                                </div>
+                                                <!--item-->
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <br/><button class="btn form-control btn-success">Update Aadhar Details</button></div>
+                        </div>
+                        <div *ngIf="aadhar">
+                            <table style="width: 100%;table-layout:fixed;">
+                                <tr>
+                                    <th>
+                                        Aadhaar No: </th>
+                                    <td>{{aadhar?.aadhaarnumber}}</td>
+                                </tr>
+                                <hr>
+                                <tr>
+                                    <td>
+                                        <b>Front Side</b><br/>
+                                        <img style="width:200px;height:150px;" [src]='"data:image/jpg;base64,"+aadhar.front'></td>
+
+
+                                </tr>
+                                <tr>
+                                    <b>Back Side</b><br/>
+                                    <img style="width:200px;height:150px;" [src]='"data:image/jpg;base64,"+aadhar.back'>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                </section>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+
+    <div class="col-6">
+
+    </div>
+    <div class="col-6">
+        <button (click)="logoutthisdevice()" class="btn-danger form-control">Log out from this Device</button>
+    </div>
+</div>
+
+
+<br/>
+<br/>
+<br/>

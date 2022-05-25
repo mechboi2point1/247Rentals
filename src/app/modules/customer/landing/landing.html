@@ -1,0 +1,96 @@
+<div class="sticky-top">
+    <table style="background-color: #ebeae1;" height="50px" class="table-bordered" width='100%'>
+        <tr>
+            <td style="text-align: left" width='20%'>
+                <a (click)="inverse()">
+
+
+                    <div class="menu1"></div>
+                    <div class="menu2"></div>
+                    <div class="menu3"></div>
+
+                </a>
+            </td>
+            <td style="text-align: center" width='60%'>
+                <img routerLink="http://dev2021.artbrush.store/#/app/fleet" width="fill" height="50px" src="../../../../assets/headlogo.jpg">
+            </td>
+            <td *ngIf="customer?.name" style="text-align: center;" width='20%'>
+                <b>{{'Hi! '+customer?.name}}</b><span class="wave">👋</span>
+            </td>
+            <td *ngIf="!customer?.name" style="text-align: center;" width='20%'>
+                <b>Hi!</b><span class="wave">👋</span>
+            </td>
+
+
+
+        </tr>
+    </table>
+</div>
+
+<div [style]="sideNavWidth" id="mySidenav" class="sidenav">
+    <a class="closebtn" (click)="closeNav()">X</a>
+
+    <a (click)="closeNav()" routerLink="./fleet" routerLinkActive="active">&nbsp;Fleet</a>
+
+    <a (click)="closeNav()" routerLinkActive="active">&nbsp;Hire Vehicle</a>
+
+    <a *ngIf="!isLoggedIn()" (click)="closeNav()" routerLink='./joinus'>
+        <i class="fa fa-sign-in"></i> &nbsp;Login
+    </a>
+    <a (click)="closeNav()" routerLink="./me" *ngIf="isLoggedIn()">
+        &nbsp;Account Details</a>
+
+    <a href=''>&nbsp;Nearest Fuel Station</a>
+
+    <a href=''>&nbsp;Report Break Down</a>
+    <a href=''>&nbsp;Vizag Tour Guid</a>
+
+    <a href=''>&nbsp;About Us</a>
+    <a href=''>&nbsp;Career</a>
+    <a href=''>&nbsp;Meet Developers</a>
+    <a (click)="closeNav()" (click)="logout()" *ngIf="isLoggedIn()">
+        &nbsp;Logout</a>
+    <a style="position: absolute;bottom: 15px;font-size: 15px;text-align: center;" href=''>&nbsp;Developed in Kolkata,India by Animesh</a>
+    <a style="position: absolute;bottom: 0px;font-size: 11px;text-align: center;" href=''>&nbsp;All rights reserved to Bharat Informatics Limited</a>
+
+</div>
+
+<div class="container-fluid" (click)="closeNav()">
+    <router-outlet>
+    </router-outlet>
+</div>
+<div style="position:fixed;bottom: 0px;width:100%;background-color:black;color:white">
+    <table style="background-color: black;color: white" height="50px" class="table-bordered" width='100%'>
+        <tr>
+            <td style="text-align: center;" width='20%'>
+                <a style="color: aliceblue;" (click)="closeNav()" routerLink="./fleet" routerLinkActive="active">
+
+
+                    <i class="fa fa-car"></i>
+
+                </a>
+            </td>
+            <td style="text-align: center" width='60%'>
+                <a>
+
+
+                    option2
+
+                </a>
+            </td>
+            <td style="text-align: center;" width='20%'>
+                <a style="color: aliceblue;" *ngIf="!isLoggedIn()" (click)="closeNav()" routerLink='./joinus'>
+                    <i class="fa fa-sign-in" aria-hidden="true"></i>
+                </a>
+                <a style="color: aliceblue;" (click)="closeNav()" routerLink="./me" *ngIf="isLoggedIn()">
+
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                </a>
+
+
+            </td>
+
+
+        </tr>
+    </table>
+</div>

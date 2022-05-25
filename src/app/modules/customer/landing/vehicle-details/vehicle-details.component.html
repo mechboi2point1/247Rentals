@@ -1,0 +1,79 @@
+<div id="booking" class="section">
+    <div class="section-center">
+        <div class="container">
+            <div class="row">
+                <div class="booking-form">
+                    <div class="form-header">
+                        <h2>Book your ride</h2>
+                        <p>For Visakhapatnam</p>
+                    </div>
+                    <form [formGroup]="bookingRequest" (ngSubmit)="elasticSearch">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <span class="form-label">Start date</span>
+                                    <input #stardate1 formControlName="startDate" class="form-control" type="date" (input)="startDate(stardate1.value)" (input)="validateBookingRequest()" [min]="todayDate" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <span class="form-label">End date</span>
+                                    <input #enddate1 class="form-control" type="date" formControlName="endDate" (input)="endDate(enddate1.value)" (input)="validateBookingRequest()" [min]="bookingRequest.value.startDate" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+
+                                    <span class="form-label">Type</span>
+                                    <select formControlName="type" class="form-control">
+                                      <option value=''>Select Type</option>
+											<option value='2'>Two wheelers</option>
+											<option value='4'>Four wheelers</option>
+
+										</select>
+                                    <span class="select-arrow"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <span class="form-label">Start time</span>
+                                    <input (input)="validateBookingRequest()" class="form-control" formControlName="startTime" type="time" min="5:00" required>
+                                    <span class="select-arrow"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <span class="form-label">End time</span>
+                                    <input (input)="validateBookingRequest()" formControlName="endTime" class="form-control" type="time" required>
+                                    <span class="select-arrow"></span>
+                                </div>
+
+                            </div>
+                            <div *ngIf='days==1' style="width: 100%;text-align: center;" class="text-success">
+
+                                <h5 *ngIf="hoursOfBooking">{{'Booking for '+hoursOfBooking+" hours"}}</h5>
+
+                            </div>
+                            <div *ngIf='days>1' style="width: 100%;text-align: center;" class="text-success">
+                                <h5>{{'Booking for '+days+" days "}}{{hoursOfBooking}}</h5>
+                            </div>
+                            <div *ngIf='days==0' style="width: 100%;text-align: center;" class="text-danger">
+                                <h5>Start date or end date is not selected yet.</h5>
+                            </div>
+                            <div *ngIf='error' style="width: 100%;text-align: center;" class="text-danger">
+                                <h6>{{error}}</h6>
+                            </div>
+                        </div>
+
+                        <div class="form-btn">
+                            <button type="submit" (click)="elasticSearch()" class="submit-btn">Check availability</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

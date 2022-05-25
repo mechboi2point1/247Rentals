@@ -1,0 +1,68 @@
+<header *ngIf="checkingAvailability" class="center-screen">
+    <h1 class="headtext" id="text1" style="color:cornflowerblue">Please Wait !</h1>
+    <h1 class="headtext" id="text2" style="color:cornflowerblue">Checking Availability...</h1>
+</header>
+<div *ngIf="error1" class="center-screen">
+    <h5 class="text-danger">This vehicle is not available for booking.</h5>
+</div>
+<br/>
+<br/>
+<div *ngIf="!checkingAvailability&&!error1" style="border-style: solid;">
+    <h4 style="text-align: center;" class="text-dark">Book your bike now</h4>
+
+    <form [formGroup]="bookingRequest" (ngSubmit)="elasticSearch">
+        <div style="background-color: aquamarine;" class="row">
+            <div class="col-3">
+                {{vehicle.brand}}
+            </div>
+            <div class="col-3">
+                {{vehicle.model}}
+            </div>
+            <div class="col-3">
+                {{vehicle.model}}
+            </div>
+            <div class="col-3 text-success">
+                Available
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-6">
+                <div class="form-group">
+                    <span class="form-label">Start date</span>
+                    <input #stardate1 formControlName="startDate" class="form-control" type="date" (input)="startDate(stardate1.value)" (input)="validateBookingRequest()" [min]="todayDate" required>
+                </div>
+            </div>
+            <div class="col-md-6 col-6">
+                <div class="form-group">
+                    <span class="form-label">End date</span>
+                    <input #enddate1 class="form-control" type="date" formControlName="endDate" (input)="endDate(enddate1.value)" (input)="validateBookingRequest()" [min]="bookingRequest.value.startDate" required>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-6 col-6">
+                <div class="form-group">
+                    <span class="form-label">Start time</span>
+                    <input (input)="validateBookingRequest()" class="form-control" formControlName="startTime" type="time" min="5:00" required>
+                    <span class="select-arrow"></span>
+                </div>
+            </div>
+            <div class="col-md-6 col-6">
+                <div class="form-group">
+                    <span class="form-label">End time</span>
+                    <input (input)="validateBookingRequest()" formControlName="endTime" class="form-control" type="time" required>
+                    <span class="select-arrow"></span>
+                </div>
+
+            </div>
+
+        </div>
+        <br/>
+        <div class="form-btn">
+            <button [disabled]="disabled" type="submit" (click)="elasticSearch()" class="btn btn-success form-control">Check availability</button>
+        </div>
+    </form>
+
+</div>

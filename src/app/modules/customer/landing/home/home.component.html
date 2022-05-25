@@ -1,0 +1,226 @@
+<div *ngIf="!checkout">
+    <br>
+    <div *ngIf="$any((bikeList?.length))>0">
+        <div class="card-header" style="width:100%;background-color:#3d3d3d;color: white;font-size: 14;">
+            🏍 Two Wheelers
+        </div>
+        <br>
+        <div class='row'>
+            <div class="col-sm-3 col-6 col-lg-2 col-lg-2 col-md-2 mb-2  m-0 m-sm-1 m-md-1 m-lg-1 m-xl-3" *ngFor="let data of bikeList">
+
+                <div style='border:1px solid black;'>
+                    <div class="card-header text-white bg-dark">
+                        <div class="text-truncate">{{data?.model}}</div>
+
+                    </div>
+
+                    <img *ngIf="!(showDetailsFor==data?.vehicle_id)" [src]='data.imagepath' class="card-img-bottom center-block" alt="Image Not Found" height="200px" width="200px">
+                    <div style='height: 200px;overflow-y: auto;border:1px solid black;' *ngIf="(showDetailsFor==data.vehicle_id)">
+                        <h5>{{data?.model}}</h5>
+                        <table style='font-family:"Courier New", Courier, monospace; font-size:80%'>
+
+                            <tr>
+                                <th>Brand:</th>
+                                <td>{{data?.brand}}</td>
+                            </tr>
+                            <tr>
+                                <th>Engine:</th>
+                                <td>{{data?.engine}}</td>
+                            </tr>
+                            <tr>
+                                <th>Free Distance:</th>
+                                <td>{{data?.pricing?.freedistance}}KM</td>
+                            </tr>
+                            <tr>
+                                <th>Additional Distance:</th>
+                                <td> Rs.{{data?.pricing?.excesscharge}}/km</td>
+                            </tr>
+
+
+
+                        </table>
+
+
+                    </div>
+                    <div class="card-footer text-success">
+                        <h6>Rs.{{data?.pricing?.daily}}/-per day</h6>
+                    </div>
+
+
+
+                    <div style='overflow-y: auto;' *ngIf="true">
+
+                        <table style='font-family:"Courier New", Courier, monospace; font-size:80%;width:100%'>
+
+                            <tr style="width:100%">
+                                <th style="width:50%"><button (click)="viewVehicleDetails(data)" class="btn-light form-control">
+Details
+            </button></th>
+                                <th style="width:50%"><button class="btn btn-warning form-control" (click)='bookMyVehicleTwo(data)' data-toggle="modal" data-target="#exampleModalCenter">Book</button></th>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <br>
+    <div *ngIf="$any((carList?.length))>0">
+        <div class="card-header" style="width:100%;background-color: #3d3d3d;color: white;font-size: 14;">
+            🚗 Four Wheelers
+        </div>
+        <br>
+        <div class='row'>
+            <div class="col-sm-4 col-6 col-lg-2 col-lg-2 col-md-4 mb-2  m-0 m-sm-1 m-md-1 m-lg-1 m-xl-3" *ngFor="let data of carList">
+
+                <div style='border:1px solid black;'>
+                    <div class="card-header text-white bg-dark">
+                        <div class="text-truncate">{{data.model}}</div>
+
+                    </div>
+
+                    <img *ngIf="!(showDetailsFor==data.vehicle_id)" [src]='data.imagepath' class="card-img-bottom center-block" alt="Image Not Found" height="200px" width="200px">
+                    <div style='height: 200px;overflow-y: auto;border:1px solid black;' *ngIf="(showDetailsFor==data.vehicle_id)">
+                        <h5>{{data.model}}</h5>
+                        <table style='font-family:"Courier New", Courier, monospace; font-size:80%'>
+
+                            <tr>
+                                <th>Brand:</th>
+                                <td>{{data?.brand}}</td>
+                            </tr>
+                            <tr>
+                                <th>Engine:</th>
+                                <td>{{data?.engine}}</td>
+                            </tr>
+                            <tr>
+                                <th>Free Distance:</th>
+                                <td>{{data?.pricing?.freedistance}}KM</td>
+                            </tr>
+                            <tr>
+                                <th>Additional Distance:</th>
+                                <td> Rs.{{data?.pricing?.excesscharge}}/km</td>
+                            </tr>
+
+
+
+                        </table>
+
+
+                    </div>
+                    <div class="card-footer text-success">
+                        <h6>Rs.{{data?.pricing?.daily}}/-per day</h6>
+                    </div>
+
+
+
+                    <div style='overflow-y: auto;' *ngIf="true">
+
+                        <table style='font-family:"Courier New", Courier, monospace; font-size:80%;width:100%'>
+
+                            <tr style="width:100%">
+                                <th style="width:50%"><button (click)="viewVehicleDetails(data)" class="btn-light form-control">
+Details
+            </button></th>
+                                <th style="width:50%"><button class="btn btn-warning form-control" (click)='bookMyVehicleFour(data)' data-toggle="modal" data-target="#exampleModalCenter" #book1>Book</button></th>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div style="width: 100%;height: 100%;" class="r1" *ngIf="bikeList?.length==0 && carList?.length==0">
+        <img class="img" src="../../../../../assets/loading.gif" style="width: 50%;">
+    </div>
+    <div *ngIf="$any((bikeList?.length))>0 && $any((carList?.length))>0">
+        <div class="card-header" style="width:100%;background-color: #7e2525;color: white;font-size: 14;height: 50px;text-align: center;">
+            <h6>Book Your Ride</h6>
+        </div>
+
+        <div>
+            <div *ngIf="innerWidth<780">
+                <br/>
+                <br/>
+                <br>
+                <div *ngIf="innerWidth<350">
+                    <br/>
+                    <br/>
+                </div>
+
+            </div>
+
+            <app-vehicle-details>
+            </app-vehicle-details>
+        </div>
+        <br/>
+        <div *ngIf="innerWidth<780">
+            <br/>
+            <br/>
+
+
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<!--
+<body class="home bike" id="body_id">
+    <main>
+        <section class="our-fleet">
+            <div class="our-fleet--heading-container">
+                <div class="our-fleet--heading">Our Fleet</div>
+            </div>
+
+            <div class="our-fleet-container">
+
+
+
+
+
+                 Every Month Loop -->
+<!--
+                <div class="our-fleet-bikeFleets">
+                    <div class="glide fleet-glide glide--ltr glide--slider glide--swipeable">
+                        <div class="glide__track" data-glide-el="track">
+                            <ul class="glide__slides" style="transition: transform 400ms cubic-bezier(0.165, 0.84, 0.44, 1) 0s; width: 910px; transform: translate3d(20px, 0px, 0px);">
+                                <li *ngFor="let data of bikeList" class="glide__slide glide__slide--active" style="width: 226px; margin-right: 1px;">
+
+                                    <div class="fleet_card">
+                                        <div class="fleet_card-subContainer">
+                                            <div class="fleet_card--bikeName">{{data?.model}}</div>
+                                            <div style="margin: 10px;
+    outline: 1px solid #CCC;
+    background: black;
+    color: #FFF;
+    height: auto;
+    overflow: auto;">
+
+                                                <img ssrc="../../../../../assets/scootydummy.jpg">
+
+
+                                            </div>
+                                        </div>
+                                        <p class="fleet_card--bikePrice"> Rs.{{data?.pricing?.daily}}/day</p>
+                                        <button class="fleet_card--bookButton btn" data-bike-model-id="35">BOOK NOW</button>
+                                    </div>
+
+                                </li>
+
+
+
+
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>-->

@@ -1,0 +1,137 @@
+<div *ngIf="!fetching">
+    <div *ngIf="booking?.length==0">
+        <a class="text-warning">Failed to fetch booking details.</a>
+        <button class="btn" (click)="refresh()">Get Booking Details</button>
+    </div>
+    <div *ngIf="booking?.length!=0">
+        <section *ngFor="let data of booking" class="accordion">
+            <input type="checkbox" name="collapse" id="handle1">
+            <h2 class="handle">
+                <label for="handle1">{{data?.bookingdate|date:'mediumDate'}}{{"("+data?.status+")"}}
+                  <button style="float: right;" class="btn btn-link">Need Help?</button>
+                </label>
+
+            </h2>
+            <div class="content">
+                <table class="table-responsive table-bordered table-striped" style="width: 100%;">
+
+                    <tr>
+                        <h5 class="text-warning">Travell Details</h5>
+                        <table style="width: 100%;" class="table-responsive table-bordered">
+
+                            <tr>
+
+                                <th *ngIf='data?.initialreading'>Initial Km</th>
+                                <th *ngIf='data?.initialreading'>Final Km</th>
+                                <th>Distance Traveled</th>
+                                <th>Status</th>
+
+                            </tr>
+                            <tr>
+
+                                <td *ngIf='data?.initialreading'>{{data?.initialreading}}</td>
+                                <td *ngIf='data?.finalreading'>{{data?.finalreading}}</td>
+                                <td *ngIf='data?.finalreading&&data?.initialreading'>{{data?.finalreading-data?.initialreading|number:'1.0-0'}} Kilo meters</td>
+                                <td *ngIf='!(data?.finalreading&&data?.initialreading)' class="text-danger">Ride Not Completed</td>
+                                <td>{{data?.status}}</td>
+                            </tr>
+                        </table>
+
+                    </tr>
+                    <tr>
+                        <h5 class="text-warning">Tarrif Details</h5>
+                        <table style="width: 100%;" class="table-responsive table-bordered">
+
+                            <tr>
+                                <th>Start Date</th>
+                                <th>Start Time</th>
+                                <th>End Date</th>
+                                <th>End Time</th>
+                            </tr>
+                            <tr>
+                                <td>{{data?.pickupdate|date:'mediumDate'}}</td>
+                                <td>{{data?.pickuptime}}</td>
+                                <td>{{data?.dropdate|date:'mediumDate'}}</td>
+                                <td>{{data?.droptime}}</td>
+                            </tr>
+                        </table>
+
+                    </tr>
+                    <tr>
+                        <h5 class="text-warning">Vehicle Details</h5>
+                        <table style="width: 100%;" class="table-responsive table-bordered">
+                            <tr>
+                                <th>Vehicle Id</th>
+                                <th>Brand</th>
+                                <th>Type</th>
+                                <th>Model</th>
+
+
+                            </tr>
+                            <tr>
+                                <td>{{data?.vehicle?.vehicle_id}}</td>
+                                <td>{{data?.vehicle?.brand}}</td>
+                                <td>{{data?.vehicle?.type}}</td>
+                                <td>{{data?.vehicle?.model}}</td>
+
+                            </tr>
+                        </table>
+                    </tr>
+                    <tr>
+                        <h5 class="text-warning">Booking Details</h5>
+                        <table style="width: 100%;" class="table-responsive table-bordered">
+                            <tr>
+                                <th>Booking Id</th>
+                                <th>Deal Amount</th>
+                                <th>Refundable Deposit</th>
+                                <th>Amount Paid</th>
+
+
+                            </tr>
+                            <tr>
+                                <td>{{data?.booking_id}}</td>
+                                <td>{{data?.dealprice}}</td>
+                                <td>{{data?.sequrityamount}}</td>
+                                <td>{{data?.advanceamount}}</td>
+
+
+                            </tr>
+                        </table>
+                    </tr>
+                    <tr *ngIf="data?.txn!=null">
+                        <h5 class="text-warning">Payment Details</h5>
+                        <table style="width: 100%;" class="table-responsive table-bordered">
+                            <tr>
+                                <th>Txn id</th>
+                                <th>Payment mode</th>
+
+                                <th>Name of Mode</th>
+                                <th>Amount Paid</th>
+
+
+                            </tr>
+                            <tr>
+                                <td>{{data?.txn}}</td>
+                                <td>{{data?.paymentmode}}</td>
+                                <td *ngIf="data?.modename==null">No Mode</td>
+                                <td *ngIf="data?.modename!=null">{{data?.modename}}</td>
+                                <td>{{data?.dealprice}}</td>
+
+
+
+                            </tr>
+                        </table>
+                    </tr>
+                </table>
+
+            </div>
+
+        </section>
+    </div>
+    <div *ngIf="!booking">
+        <button class="btn form-control">Get My Booking History</button>
+    </div>
+</div>
+<div *ngIf="fetching">
+    Fetching Details
+</div>

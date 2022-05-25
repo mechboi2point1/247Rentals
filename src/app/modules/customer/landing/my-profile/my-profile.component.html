@@ -1,0 +1,33 @@
+<div class="container">
+    <ul class="nav nav-tabs nav-justified">
+        <li class="nav-item">
+            <a data-toggle="tab" class="nav-link" (click)="changeView('profile')">Documents</a>
+        </li>
+        <li class="nav-item">
+            <a data-toggle="tab" class="nav-link" (click)="changeView('booking')">Bookings</a>
+        </li>
+        <li class="nav-item">
+            <a data-toggle="tab" class="nav-link" (click)="changeView('payment')">My Offers</a>
+        </li>
+    </ul>
+    <br>
+    <br>
+    <div class="tab-content">
+
+        <div c lass="tab-pane fade show active">
+            <app-my-billings *ngIf="view=='billing'"></app-my-billings>
+        </div>
+        <div class="tab-pane fade show active">
+            <app-my-booking-history [booking]="booking" *ngIf="view=='booking'"></app-my-booking-history>
+        </div>
+        <div class="tab-pane fade show active">
+            <app-my-documents [customer]="customer" [aadhar]="aadhar" [drivingLicence]="drivingLicence" [fetchingDocuments]="fetchingDocuments" [dp]="dp" *ngIf="view=='profile'"></app-my-documents>
+
+        </div>
+        <div class="tab-pane fade show active">
+            <app-my-payments *ngIf="view=='payment'"></app-my-payments>
+
+        </div>
+    </div>
+
+</div>

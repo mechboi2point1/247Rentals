@@ -1,0 +1,33 @@
+.headtext {
+    font-size: 14;
+    animation-name: head;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+
+#text2 {
+    animation-delay: 2s;
+}
+
+@keyframes head {
+    0% {
+        font-size: 14;
+        opacity: 1;
+    }
+    50% {
+        font-size: 0;
+        opacity: 0;
+    }
+    100% {
+        font-size: 14;
+        opacity: 1;
+    }
+}
+
+.center-screen {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -100px;
+}
