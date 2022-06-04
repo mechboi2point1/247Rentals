@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { of } from "rxjs";
+import { catchError, map } from "rxjs/operators";
 import { PublicServiceService } from "src/app/services/public-service.service";
 
 @Component({
@@ -16,11 +18,13 @@ export class CustomerLanding implements OnInit {
   isloggedin = false;
   customer: any = this.getCustomer();
   ngOnInit(): void {
+
     this.getCustomer();
     this.service.getUseDetails().subscribe(
       res => {
         this.service.updateCustomer(res.body.data);
         this.service.updatedCustomer.subscribe((c: any) => { this.customer = c });
+
 
       },
       err => {
@@ -66,7 +70,11 @@ export class CustomerLanding implements OnInit {
 
   }
   getCustomer() {
-    this.service.updatedCustomer.subscribe((c: any) => { this.customer = c });
+    this.service.updatedCustomer.subscribe((c: any) => {
+      this.customer = c;
+
+    });
+
   }
 
 }

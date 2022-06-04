@@ -49,6 +49,7 @@ export class MyDocumentsComponent implements OnInit {
     reader.readAsDataURL(files[0]);
     reader.onload = (_event) => {
       this.frontDlimgURL = reader.result;
+      console.log(this.frontDlimgURL)
     }
   }
   previewBackDL(files: any) {
@@ -87,6 +88,7 @@ export class MyDocumentsComponent implements OnInit {
     this.frontAadharimagePath = files;
     reader.readAsDataURL(files[0]);
     reader.onload = (_event) => {
+
       this.frontAadharimgURL = reader.result;
     }
   }
